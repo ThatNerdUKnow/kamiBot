@@ -1,10 +1,14 @@
 const User = require("./database/database.js");
 const client = require("./twitch/twitch.js");
+const chalk = require("chalk");
 
 var peopleWatching = new Object();
 
 client.on("join", (channel, username, self) => {
-  newUser(username);
+    if(!self)
+    {
+        newUser(username);
+    }
 });
 
 client.on("message", (channel, user, message, self) => {
@@ -33,7 +37,11 @@ client.on("part",(channel,name,self)=>{
 
 function newUser(name) {
   var newUser = new User({ uName: name });
-  newUser.save();
+  newUser.save().then((val)=>{
+      console.log(chalk.underline(name) + " " + chalk.green("Has been added to the database"))
+  }).catch((err)=>{
+      console.log(chalk.bgRed("ERR!") + ` ${chalk.underline(name)} already in the database`)
+  });
 
   if (!peopleWatching[name]) {
     peopleWatching[name] = {
@@ -45,3 +53,4 @@ function newUser(name) {
       // This person already exists
   }
 }
+
