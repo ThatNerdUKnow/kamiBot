@@ -70,7 +70,7 @@ async function newUser(name) {
 async function updateUser(data, name) {
   user = data.user;
   messages = data.messagesSent;
-  timeWatched = Date.now() / 1000 - data.timeJoined;
+  timeWatched = (Date.now() / 1000 - data.timeJoined)/60;
 
   user.messagesSent += messages;
   user.timeWatched += timeWatched;
@@ -84,3 +84,9 @@ async function updateUser(data, name) {
       chalk.green("Has been updated")
   );
 }
+
+function testFunct(){
+    return 1;
+}
+
+module.exports = {testFunct,updateUser,newUser}
