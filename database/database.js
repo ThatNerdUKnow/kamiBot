@@ -1,21 +1,20 @@
-const mongoose = require("mongoose")
-const userSchema = require( "./schemas/userSchema.js")
+const mongoose = require("mongoose");
+const userSchema = require("./schemas/userSchema.js");
+require("dotenv").config();
 
-mongoose.connect("mongodb://localhost/test", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-}).then((connection,err)=>{
-    if(err)
-    {
-        console.log(err);
+mongoose
+  .connect(process.env.DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then((connection, err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Successfully connected to database");
     }
-    else
-    {
-        console.log("Successfully connected to database")
-    }
-});
-
+  });
 
 const User = mongoose.model("User", userSchema);
 

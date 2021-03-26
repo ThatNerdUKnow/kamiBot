@@ -1,8 +1,9 @@
 const tmi = require("tmi.js")
+require('dotenv').config()
 
 const client = new tmi.Client({
     connection: {reconnect:true},
-    channels: ["moistcr1tikal"]
+    channels: [process.env.CHANNEL]
 })
 
 client.connect().then((conn,err)=>{
