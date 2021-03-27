@@ -21,17 +21,20 @@ describe("User Tests", () => {
 });
 
 describe("VIP Tests", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await mongoose.connect("mongodb://localhost/test", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     });
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     //
     await Vip.collection.drop();
+    await mongoose.disconnect();
   });
+
   test("Get details of VIP from objectId", async () => {
     origUser = await User.findOne();
     var testVip = new Vip({ user: origUser._id });
