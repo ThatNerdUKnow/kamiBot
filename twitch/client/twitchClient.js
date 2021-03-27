@@ -1,12 +1,12 @@
 const tmi = require("tmi.js");
 require("dotenv").config();
 
-const client = new tmi.Client({
+const twitchClient = new tmi.Client({
   connection: { reconnect: true },
   channels: [process.env.CHANNEL],
 });
 
-client.connect().then((conn, err) => {
+twitchClient.connect().then((conn, err) => {
   if (err) {
     console.error(err);
   } else {
@@ -14,4 +14,4 @@ client.connect().then((conn, err) => {
   }
 });
 
-module.exports = client;
+module.exports = twitchClient;

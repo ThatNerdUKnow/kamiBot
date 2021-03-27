@@ -2,37 +2,21 @@ const {
   newUser,
   updateUser,
   peopleWatching,
-} = require("./database/database.js");
-const client = require("./twitch/twitch.js");
+} = require("./database/databaseFunctions.js");
 const chalk = require("chalk");
+const mongoose = require("mongoose");
+const events = require("./twitch/events/events.js");
 
-client.on("join", (channel, username, self) => {
-  if (!self) {
-    newUser(username);
-  }
-});
-
-client.on("message", (channel, user, message, self) => {
-  var name = user["display-name"];
-
-  if (peopleWatching[name]) {
-    peopleWatching[name].messagesSent++;
-  } else {
-    newUser(name);
-  }
-});
-
-client.on("part", (channel, name, self) => {
-  if (peopleWatching[name]) {
-    data = peopleWatching[name];
-
-    updateUser(data, name);
-  } else {
-    console.log(
-      chalk.black.bgKeyword("darkorange")("WARN") +
-        " untracked user " +
-        chalk.underline(name) +
-        " left the channel"
-    );
-  }
-});
+mongoose
+  .connect(process.env.DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then((connection, err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Successfully connected to database");
+    }
+  });

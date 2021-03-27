@@ -1,23 +1,7 @@
-const mongoose = require("mongoose");
 const { userSchema, User } = require("./schemas/userSchema.js");
 const chalk = require("chalk");
-require("dotenv").config();
 
 var peopleWatching = new Object();
-
-mongoose
-  .connect(process.env.DB_HOST, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
-  .then((connection, err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Successfully connected to database");
-    }
-  });
 
 async function updateUser(data, name) {
   user = data.user;
