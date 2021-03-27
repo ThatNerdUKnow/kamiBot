@@ -2,7 +2,7 @@ const {
   newUser,
   updateUser,
   peopleWatching,
-} = require("./database/databaseFunctions.js");
+} = require("./database/userFunctions.js");
 const chalk = require("chalk");
 const mongoose = require("mongoose");
 const events = require("./twitch/events/events.js");

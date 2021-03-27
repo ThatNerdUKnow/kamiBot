@@ -5,7 +5,7 @@ const {
   newUser,
   updateUser,
   peopleWatching,
-} = require("../../database/databaseFunctions");
+} = require("../../database/userFunctions");
 
 twitchClient.on("join", (channel, username, self) => {
   if (!self) {

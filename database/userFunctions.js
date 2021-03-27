@@ -12,13 +12,7 @@ async function updateUser(data, name) {
   user.timeWatched += timeWatched;
   user.save();
   peopleWatching[name] = undefined;
-  console.log(
-    chalk.black.bgCyan("UPD") +
-      " " +
-      chalk.underline(name) +
-      " " +
-      chalk.green("Has been updated")
-  );
+  console.log(chalk.underline(name) + " " + chalk.blue("Has been updated"));
 }
 
 async function newUser(name) {
@@ -27,17 +21,14 @@ async function newUser(name) {
     .save()
     .then((val) => {
       console.log(
-        chalk.black.bgGreen("NEW") +
-          " " +
-          chalk.underline(name) +
+        chalk.underline(name) +
           " " +
           chalk.green("Has been added to the database")
       );
     })
     .catch(async (err) => {
       console.log(
-        chalk.bgRed("DUPE") +
-          ` ${chalk.underline(name)} already in the database`
+        chalk.underline(name) + " " + chalk.red("already in the database")
       );
       newUser = await User.findOne({ uName: name });
     });
