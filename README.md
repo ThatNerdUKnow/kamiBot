@@ -22,3 +22,7 @@ First, create a .env file with the following keys:
 DB_HOST (the host of the mongodb database)
 CHANNEL (the desired channel to monitor and track)
 then, to start the bot, type `npm run start`
+
+## Testing
+
+To run the test suite, run `npm run test`
