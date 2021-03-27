@@ -1,7 +1,9 @@
 const userSchema = require("./userSchema.js")
 const mongoose = require("mongoose")
 
-test("Test interaction score validation",()=>{
+const User = mongoose.model("User",userSchema)
+
+test("Interaction score validation",()=>{
     
     const User = mongoose.model("User",userSchema)
 
@@ -9,6 +11,11 @@ test("Test interaction score validation",()=>{
     testUser.messagesSent = 25;
     testUser.timeWatched = 25;
     testUser.validateSync()
-    console.log(testUser)
     expect(testUser.interactionScore).toBe(50)
+})
+
+test("Able to get id of document?",()=>{
+    var testUser = new User({uName:"TestUser"})
+    testUser.validateSync()
+    expect(mongoose.isValidObjectId(testUser._id)).toBe(true)
 })
