@@ -9,7 +9,7 @@ const userSchema = new Schema(
     interactionScore: {
       type: Number,
       validate: interactionScoreValidator,
-      default: 0
+      default: 0,
     },
   },
   { timestamps: true }
@@ -20,4 +20,6 @@ function interactionScoreValidator() {
   return this.interactionScore === this.timeWatched + this.messagesSent;
 }
 
-module.exports = userSchema;
+const User = mongoose.model("User", userSchema);
+
+module.exports = { userSchema, User };

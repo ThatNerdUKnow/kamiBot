@@ -1,8 +1,6 @@
-const userSchema = require("./userSchema.js");
+const { userSchema, User } = require("./userSchema.js");
 const { vipSchema, Vip } = require("./vipSchema");
 const mongoose = require("mongoose");
-
-const User = mongoose.model("User", userSchema);
 
 describe("User Tests", () => {
   test("Interaction score validation", () => {
@@ -32,7 +30,7 @@ describe("VIP Tests", () => {
 
   afterEach(async () => {
     //
-    Vip.collection.drop();
+    await Vip.collection.drop();
   });
   test("Get details of VIP from objectId", async () => {
     origUser = await User.findOne();
@@ -40,8 +38,6 @@ describe("VIP Tests", () => {
     await testVip.save();
 
     testVip = await Vip.findOne().populate("user");
-
-    //origuser = await User.findById(origUser._id)
 
     expect(JSON.stringify(testVip.user)).toBe(JSON.stringify(origUser));
   });
