@@ -1,11 +1,5 @@
-const {
-  newUser,
-  updateUser,
-  peopleWatching,
-} = require("./database/userFunctions.js");
-const chalk = require("chalk");
 const mongoose = require("mongoose");
-const events = require("./twitch/events/events.js");
+require("./twitch/events/events.js");
 
 mongoose
   .connect(process.env.DB_HOST, {
