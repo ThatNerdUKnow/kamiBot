@@ -31,16 +31,17 @@ describe("VIP Tests", () => {
 
   afterAll(async () => {
     //
-    await Vip.collection.drop();
+
     await mongoose.disconnect();
   });
 
   test("Get details of VIP from objectId", async () => {
     origUser = await User.findOne();
     var testVip = new Vip({ user: origUser._id });
-    await testVip.save();
+    await Vip.deleteOne({ user: origUser._id });
+    await testVip.save().catch();
 
-    testVip = await Vip.findOne().populate("user");
+    testVip = await Vip.findOne({ user: origUser._id }).populate("user");
 
     expect(JSON.stringify(testVip.user)).toBe(JSON.stringify(origUser));
   });
